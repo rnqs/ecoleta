@@ -1,16 +1,71 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, Image, SafeAreaView } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import {
+  View,
+  Text,
+  Image,
+  Linking,
+  SafeAreaView,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native'
 import { Feather as Icon, MaterialCommunityIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { RectButton } from 'react-native-gesture-handler'
+import * as MailComposer from 'expo-mail-composer'
+
+import api, { Point } from '../../services/api'
 
 import styles from './styles'
 
 const Detail = () => {
+  const [pointData, setPointData] = useState<Point>({} as Point)
+
   const navigation = useNavigation()
+  const route = useRoute()
+
+  const routeParams = route.params as { point_id: number }
+
+  useEffect(() => {
+    fetchPointData()
+  })
+
+  const fetchPointData = async () => {
+    const response = await api.get(`point/${routeParams.point_id}`)
+
+    setPointData(response.data)
+  }
+
+  const handleSendMail = () => {
+    MailComposer.composeAsync({
+      recipients: [pointData.email],
+      subject: 'Interesse em coleta de resíduos',
+    })
+  }
+
+  const handleSendWhatsApp = () => {
+    Linking.openURL(
+      `whatsapp://send?phone=${
+        pointData.whatsapp
+      }&text=${'Interesse em coleta de resíduos'}`
+    )
+  }
 
   const handleNavigateBack = () => {
     navigation.goBack()
+  }
+
+  if (!pointData) {
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          <TouchableOpacity onPress={handleNavigateBack}>
+            <Icon name="arrow-left" size={20} color="#34cd79" />
+          </TouchableOpacity>
+
+          <ActivityIndicator color="#34cd79" size="large" style={{ flex: 1 }} />
+        </View>
+      </SafeAreaView>
+    )
   }
 
   return (
@@ -20,29 +75,25 @@ const Detail = () => {
           <Icon name="arrow-left" size={20} color="#34cd79" />
         </TouchableOpacity>
 
-        <Image
-          style={styles.pointImage}
-          source={{
-            uri:
-              'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=40',
-          }}
-        />
+        <Image style={styles.pointImage} source={{ uri: pointData.image }} />
 
-        <Text style={styles.pointName}>Mercado do seu zé</Text>
-        <Text style={styles.pointItems}>Lâmpadas, Óleo de cozinha</Text>
+        <Text style={styles.pointName}>{pointData.name}</Text>
+        <Text style={styles.pointItems}>{pointData.items?.join(', ')}</Text>
 
         <View style={styles.address}>
           <Text style={styles.addressTitle}>Endereço</Text>
-          <Text style={styles.addressContent}>Santa Cruz do Rio Pardo, SP</Text>
+          <Text style={styles.addressContent}>
+            {pointData.city}, {pointData.uf}
+          </Text>
         </View>
       </View>
       <View style={styles.footer}>
-        <RectButton style={styles.button} onPress={() => {}}>
+        <RectButton style={styles.button} onPress={handleSendWhatsApp}>
           <MaterialCommunityIcons name="whatsapp" size={20} color="#fff" />
           <Text style={styles.buttonText}>WhatsApp</Text>
         </RectButton>
 
-        <RectButton style={styles.button} onPress={() => {}}>
+        <RectButton style={styles.button} onPress={handleSendMail}>
           <Icon name="mail" size={20} color="#fff" />
           <Text style={styles.buttonText}>E-mail</Text>
         </RectButton>

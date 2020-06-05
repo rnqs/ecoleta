@@ -10,4 +10,17 @@ export interface Item {
   imageUrl: string
 }
 
+export interface Point {
+  _id: number
+  name: string
+  image: string
+  email: string
+  whatsapp: string
+  city: string
+  uf: string
+  latitude: number
+  longitude: number
+  items?: string[]
+}
+
 export default api
