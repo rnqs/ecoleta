@@ -13,6 +13,7 @@ app.use(express.json())
 app.use(routes)
 
 app.use('/static', express.static(path.resolve(__dirname, '..', 'static')))
+app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')))
 
 app.listen(port, () => {
   console.log(`🚀 Ecoleta server is listening on port ${port}!`)

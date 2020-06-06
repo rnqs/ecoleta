@@ -1,0 +1,44 @@
+#completed-form-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  background-color: rgba(14, 10, 20, 0.95);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1001;
+}
+
+#completed-form-container .completed-form {
+  max-width: 730px;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#completed-form-container .completed-form svg {
+  width: 64px;
+  height: 64px;
+
+  margin-bottom: 24px;
+}
+
+#completed-form-container .completed-form h2 {
+  margin: 0 48px;
+  color: #F0F0F5;
+
+  text-align: center;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 42px;
+}

@@ -1,18 +1,19 @@
 import express from 'express'
-
-const routes = express.Router()
+import multer from 'multer'
+import multerConfig from './configs/multer'
 
 import * as itemController from './controllers/itemController'
 import * as pointController from './controllers/pointController'
 
-routes.get('/', (req, res) => {
-  return res.send('Ecoleta server is listening')
-})
+const routes = express.Router()
+const upload = multer(multerConfig)
+
+routes.get('/', (req, res) => res.send('Ecoleta server is listening'))
 
 routes.get('/items', itemController.index)
 
 routes.get('/point', pointController.index)
 routes.get('/point/:id', pointController.show)
-routes.post('/point', pointController.create)
+routes.post('/point', upload.single('image'), pointController.create)
 
 export default routes
