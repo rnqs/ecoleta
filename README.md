@@ -1,12 +1,13 @@
 <h1 align="center">
-    <img alt="Ecoleta logo" src=".github/logo.png" width="200px" style='margin-right: 10px'/>
+    <img alt="Ecoleta logo" src=".github/logo.png"/>
 </h1>
-<h3 align="center">
+
+<h1 align="center">
     <a href="https://github.com/RenanArques/ecoleta/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/RenanArques/ecoleta"></a>
     <a>
     <img alt="npm type definitions" src="https://img.shields.io/npm/types/typescript">
     </a>
-</h3>
+</h1>
 
 <h4 align="center">
 
