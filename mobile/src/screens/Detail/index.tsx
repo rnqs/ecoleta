@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,
+  Platform,
 } from 'react-native'
 import { Feather as Icon, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -27,7 +28,7 @@ const Detail = () => {
 
   useEffect(() => {
     fetchPointData()
-  })
+  }, [])
 
   const fetchPointData = async () => {
     const response = await api.get(`point/${routeParams.point_id}`)
@@ -37,16 +38,20 @@ const Detail = () => {
 
   const handleSendMail = () => {
     MailComposer.composeAsync({
-      recipients: [pointData.email],
+      recipients: [pointData.point?.email],
       subject: 'Interesse em coleta de resíduos',
     })
   }
 
   const handleSendWhatsApp = () => {
     Linking.openURL(
-      `whatsapp://send?phone=${
-        pointData.whatsapp
-      }&text=${'Interesse em coleta de resíduos'}`
+      Platform.OS === 'ios'
+        ? `https://wa.me/${
+            pointData.point?.whatsapp
+          }?text=${'Interesse em coleta de resíduos'}`
+        : `whatsapp://send?phone=${
+            pointData.point?.whatsapp
+          }&text=${'Interesse em coleta de resíduos'}`
     )
   }
 
@@ -74,16 +79,18 @@ const Detail = () => {
         <TouchableOpacity onPress={handleNavigateBack}>
           <Icon name="arrow-left" size={20} color="#34cd79" />
         </TouchableOpacity>
+        <Image
+          style={styles.pointImage}
+          source={{ uri: pointData.point?.image }}
+        />
 
-        <Image style={styles.pointImage} source={{ uri: pointData.image }} />
-
-        <Text style={styles.pointName}>{pointData.name}</Text>
+        <Text style={styles.pointName}>{pointData.point?.name}</Text>
         <Text style={styles.pointItems}>{pointData.items?.join(', ')}</Text>
 
         <View style={styles.address}>
           <Text style={styles.addressTitle}>Endereço</Text>
           <Text style={styles.addressContent}>
-            {pointData.city}, {pointData.uf}
+            {pointData.point?.city}, {pointData.point?.uf}
           </Text>
         </View>
       </View>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://192.168.1.168:3030',
+  baseURL: 'http://localhost:3030',
 })
 
 export interface Item {
@@ -11,6 +11,21 @@ export interface Item {
 }
 
 export interface Point {
+  point: {
+    _id: number
+    name: string
+    image: string
+    email: string
+    whatsapp: string
+    city: string
+    uf: string
+    latitude: number
+    longitude: number
+  }
+  items?: string[]
+}
+
+export interface PointList {
   _id: number
   name: string
   image: string

@@ -16,7 +16,7 @@ import {
 import styles from './styles'
 import mapStyle from '../../constants/mapStyle'
 
-import api, { Item, Point } from '../../services/api'
+import api, { Item, PointList } from '../../services/api'
 
 interface Params {
   uf: string
@@ -25,7 +25,7 @@ interface Params {
 
 const Points = () => {
   const [items, setItems] = useState<Item[]>()
-  const [points, setPoints] = useState<Point[]>()
+  const [points, setPoints] = useState<PointList[]>()
 
   const [selectedItemsId, setSelectedItemsId] = useState<number[]>([])
 

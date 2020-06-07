@@ -575,7 +575,7 @@
     "@babel/helper-builder-binary-assignment-operator-visitor" "^7.10.1"
     "@babel/helper-plugin-utils" "^7.10.1"
 
-"@babel/plugin-transform-flow-strip-types@^7.0.0":
+"@babel/plugin-transform-flow-strip-types@^7.0.0", "@babel/plugin-transform-flow-strip-types@^7.10.1":
   version "7.10.1"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-flow-strip-types/-/plugin-transform-flow-strip-types-7.10.1.tgz#59eafbff9ae85ec8932d4c16c068654be814ec5e"
   integrity sha512-i4o0YwiJBIsIx7/liVCZ3Q2WkWr1/Yu39PksBOnh/khW2SwIFsGa5Ze+MSon5KbDfrEHP9NeyefAgvUSXzaEkw==
@@ -872,6 +872,14 @@
     invariant "^2.2.2"
     levenary "^1.1.1"
     semver "^5.5.0"
+
+"@babel/preset-flow@^7.0.0":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@babel/preset-flow/-/preset-flow-7.10.1.tgz#29498ec23baf9aa6dae50c568ceba09d71692b82"
+  integrity sha512-FuQsibb5PaX07fF1XUO5gjjxdEZbcJv8+ugPDaeFEsBIvUTib8hCtEJow/c2F0jq9ZUjpHCQ8IQKNHRvKE1kJQ==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.10.1"
+    "@babel/plugin-transform-flow-strip-types" "^7.10.1"
 
 "@babel/preset-modules@^0.1.3":
   version "0.1.3"
@@ -3474,7 +3482,7 @@ lodash.throttle@^4.1.1:
   resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
   integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
-lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@^4.5.0, lodash@^4.6.0:
+lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@^4.5.0, lodash@^4.6.0:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -4495,6 +4503,14 @@ react-is@^16.12.0, react-is@^16.13.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-native-autocomplete-search@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-autocomplete-search/-/react-native-autocomplete-search-1.0.8.tgz#72a3e0ca295850d6c8df7f05b8567162b29c7ff2"
+  integrity sha512-nuPcKE5sqNhVTPbgxB/hsL3qh/ZFc/t0NQ1kgK503K7pAe2Uk3pvs3npQcT4QgMbpHcXbp1L3PQXenVnmrQc3g==
+  dependencies:
+    "@babel/preset-flow" "^7.0.0"
+    lodash "^4.17.11"
 
 react-native-gesture-handler@~1.6.0:
   version "1.6.1"

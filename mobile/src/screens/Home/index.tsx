@@ -12,17 +12,32 @@ import {
 } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
+import { InputAutoSuggest } from 'react-native-autocomplete-search'
+
+import ibgeLocalityApi, {
+  UFResponse,
+  CityResponse,
+} from '../../services/ibgeLocalityApi'
 
 import styles from './styles'
+
+interface Uf {
+  id: number
+  name: string
+}
 
 const Home = () => {
   const [keyboardVisible, setKeyboardVisible] = useState(false)
   const [uf, setUf] = useState('')
+  const [ufs, setUfs] = useState<Uf[]>([])
   const [city, setCity] = useState('')
+  const [cities, setCities] = useState<string[]>([])
 
   const navigation = useNavigation()
 
   useEffect(() => {
+    fetchUfs()
+
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => setKeyboardVisible(true)
@@ -38,6 +53,45 @@ const Home = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (!uf) {
+      setCities([])
+      return
+    }
+
+    fetchCitiesByUf(ufs.filter((currentUf) => currentUf.name === uf)[0].id)
+  }, [uf])
+
+  const fetchUfs = async () => {
+    const response = await ibgeLocalityApi.get<UFResponse[]>('estados', {
+      params: {
+        orderBy: 'nome',
+      },
+    })
+
+    setUfs(
+      response.data.map((uf) => {
+        return {
+          id: uf.id,
+          name: uf.nome,
+        }
+      })
+    )
+  }
+
+  const fetchCitiesByUf = async (ufId: number) => {
+    const response = await ibgeLocalityApi.get<CityResponse[]>(
+      `estados/${ufId}/municipios`,
+      {
+        params: {
+          orderBy: 'nome',
+        },
+      }
+    )
+
+    setCities(response.data.map((city) => city.nome))
+  }
+
   const handleNavigatePoints = () => {
     navigation.navigate('Points', { uf, city })
   }
@@ -45,7 +99,7 @@ const Home = () => {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'height' : undefined}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ImageBackground
         source={require('../../assets/home-background.png')}
@@ -68,22 +122,39 @@ const Home = () => {
         </View>
 
         <View style={styles.footer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite a UF"
+          <Text style={[styles.placeholder]}>Digite sua uf</Text>
+          <InputAutoSuggest
+            inputStyle={styles.input}
+            flatListStyle={styles.suggestList}
+            itemTextStyle={styles.suggestListItem}
             value={uf}
             autoCorrect={false}
             autoCapitalize="words"
-            onChangeText={setUf}
+            onDataSelectedChange={(data: Uf) => setUf(data?.name)}
             onFocus={() => setKeyboardVisible(true)}
+            staticData={ufs.map((uf) => {
+              return {
+                id: String(uf.id),
+                name: uf.name,
+              }
+            })}
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Digite a Cidade"
+
+          <Text style={[styles.placeholder]}>Digite sua cidade</Text>
+          <InputAutoSuggest
+            inputStyle={styles.input}
+            flatListStyle={styles.suggestList}
+            itemTextStyle={styles.suggestListItem}
             value={city}
             autoCorrect={false}
-            onChangeText={setCity}
+            onDataSelectedChange={(data: Uf) => setCity(data?.name)}
             onFocus={() => setKeyboardVisible(true)}
+            staticData={cities.map((city, index) => {
+              return {
+                id: String(index),
+                name: city,
+              }
+            })}
           />
 
           <RectButton style={styles.button} onPress={handleNavigatePoints}>

@@ -35,10 +35,34 @@ const styles = StyleSheet.create({
   input: {
     height: 60,
     backgroundColor: '#FFF',
+    borderBottomColor: '#fff',
     borderRadius: 10,
     marginBottom: 8,
     paddingHorizontal: 24,
     fontSize: 16,
+    zIndex: 1,
+  },
+
+  suggestList: {
+    marginTop: -68,
+    paddingTop: 60,
+    paddingBottom: 6,
+    marginBottom: 8,
+    backgroundColor: '#f8f8f8',
+    borderRadius: 10,
+  },
+
+  suggestListItem: {
+    width: '100%',
+    marginVertical: 4,
+    paddingHorizontal: 24,
+    fontSize: 14,
+  },
+
+  placeholder: {
+    marginBottom: 4,
+    fontSize: 16,
+    color: '#6C6C80',
   },
 
   button: {
