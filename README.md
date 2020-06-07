@@ -1,11 +1,12 @@
-<h1 style='display: flex; align-items: center;'>
+<h1 align="center">
     <img alt="Ecoleta logo" src=".github/logo.png" width="200px" style='margin-right: 10px'/>
-    •
-    <a href="https://github.com/RenanArques/ecoleta/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/RenanArques/ecoleta" style='margin: 0 8px;'></a>
-    <a>
-    <img alt="npm type definitions" src="https://img.shields.io/npm/types/typescript" style='margin: 0 8px;'>
-    </a>
 </h1>
+<h3 align="center">
+    <a href="https://github.com/RenanArques/ecoleta/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/RenanArques/ecoleta"></a>
+    <a>
+    <img alt="npm type definitions" src="https://img.shields.io/npm/types/typescript">
+    </a>
+</h3>
 
 <h4 align="center">
 
